@@ -8,3 +8,4 @@
 - Step C: Start minimal backend health (later).
 
 Now: Phase 1.1 schema + sample created on 2025-11-04
+Now: Phase 1.2 minimal backend created on 2025-11-04
