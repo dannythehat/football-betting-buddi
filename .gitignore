@@ -1,18 +1,17 @@
-﻿# Node / tooling
+﻿# Node
 node_modules/
+npm-debug.log*
+yarn.lock
+package-lock.json
+
+# Vite
 dist/
-build/
-.cache/
-.env
-.env.*
-.DS_Store
+.vite/
 
 # Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+logs/
+*.log
 
-# Editor
-.vscode/
-.idea/
+# Env
+.env
+.env.*
