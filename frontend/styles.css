@@ -1,0 +1,7 @@
+﻿body { font-family: system-ui, Arial, sans-serif; margin: 0; color: #222; background:#f7f8fa; }
+header { background: #0e1e2f; color: #fff; padding: 1rem 1.5rem; }
+main { padding: 1rem 1.5rem; max-width: 960px; margin: 0 auto; }
+.card { background:#fff; border: 1px solid #e6e8eb; border-radius: 10px; padding: 1rem; margin-bottom: .75rem; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+.card h3 { margin: 0 0 .5rem 0; }
+.badge { display: inline-block; padding: .2rem .5rem; border-radius: 999px; background: #eaf5ff; border: 1px solid #b6d8ff; margin-right: .25rem; font-size: .8rem; }
+small { color:#667085; }

@@ -1,0 +1,25 @@
+﻿{
+  "generated_at": "2025-11-04T07:37:13.2406498Z",
+  "bets": [
+    {
+      "league": "EPL",
+      "fixture": "Arsenal vs. Spurs",
+      "market": "Over/Under 2.5",
+      "selection": "Over 2.5",
+      "odds": 1.85,
+      "expected_value": 0.08,
+      "confidence": 0.72,
+      "reasoning": "Recent xG and injuries suggest a goal-heavy match."
+    },
+    {
+      "league": "La Liga",
+      "fixture": "Real Madrid vs. Sevilla",
+      "market": "BTTS",
+      "selection": "Yes",
+      "odds": 1.95,
+      "expected_value": 0.06,
+      "confidence": 0.68,
+      "reasoning": "Both teams score rates and form point to BTTS."
+    }
+  ]
+}
