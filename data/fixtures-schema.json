@@ -1,0 +1,352 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Football Fixture Schema",
+  "description": "Schema for football fixtures with comprehensive betting market data",
+  "type": "object",
+  "required": ["id", "homeTeam", "awayTeam", "league", "kickoff", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique fixture identifier"
+    },
+    "homeTeam": {
+      "type": "string",
+      "description": "Home team name"
+    },
+    "awayTeam": {
+      "type": "string",
+      "description": "Away team name"
+    },
+    "league": {
+      "type": "object",
+      "required": ["name", "country"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "League name (e.g., Premier League)"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country code (e.g., ENG, ESP, ITA)"
+        },
+        "logo": {
+          "type": "string",
+          "description": "League logo URL"
+        }
+      }
+    },
+    "kickoff": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Match kickoff time in ISO 8601 format"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["scheduled", "live", "finished", "postponed", "cancelled"],
+      "description": "Current fixture status"
+    },
+    "venue": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Stadium name"
+        },
+        "city": {
+          "type": "string",
+          "description": "City location"
+        }
+      }
+    },
+    "score": {
+      "type": "object",
+      "description": "Match score (null if not started)",
+      "properties": {
+        "home": {
+          "type": ["integer", "null"],
+          "description": "Home team score"
+        },
+        "away": {
+          "type": ["integer", "null"],
+          "description": "Away team score"
+        },
+        "halftime": {
+          "type": "object",
+          "properties": {
+            "home": {
+              "type": ["integer", "null"]
+            },
+            "away": {
+              "type": ["integer", "null"]
+            }
+          }
+        }
+      }
+    },
+    "markets": {
+      "type": "object",
+      "description": "Betting markets with odds",
+      "properties": {
+        "matchResult": {
+          "type": "object",
+          "description": "1X2 - Match Result market",
+          "properties": {
+            "home": {
+              "type": "number",
+              "description": "Home win odds (decimal format)"
+            },
+            "draw": {
+              "type": "number",
+              "description": "Draw odds (decimal format)"
+            },
+            "away": {
+              "type": "number",
+              "description": "Away win odds (decimal format)"
+            }
+          }
+        },
+        "overUnder": {
+          "type": "object",
+          "description": "Over/Under goals market",
+          "properties": {
+            "line": {
+              "type": "number",
+              "description": "Goals line (e.g., 2.5)"
+            },
+            "over": {
+              "type": "number",
+              "description": "Over odds (decimal format)"
+            },
+            "under": {
+              "type": "number",
+              "description": "Under odds (decimal format)"
+            }
+          }
+        },
+        "bothTeamsToScore": {
+          "type": "object",
+          "description": "BTTS - Both Teams To Score market",
+          "properties": {
+            "yes": {
+              "type": "number",
+              "description": "Yes odds (decimal format)"
+            },
+            "no": {
+              "type": "number",
+              "description": "No odds (decimal format)"
+            }
+          }
+        },
+        "doubleChance": {
+          "type": "object",
+          "description": "Double Chance market",
+          "properties": {
+            "homeOrDraw": {
+              "type": "number",
+              "description": "Home or Draw odds"
+            },
+            "homeOrAway": {
+              "type": "number",
+              "description": "Home or Away odds"
+            },
+            "drawOrAway": {
+              "type": "number",
+              "description": "Draw or Away odds"
+            }
+          }
+        },
+        "asianHandicap": {
+          "type": "object",
+          "description": "Asian Handicap market",
+          "properties": {
+            "line": {
+              "type": "number",
+              "description": "Handicap line (e.g., -1.5, 0, +1.5)"
+            },
+            "home": {
+              "type": "number",
+              "description": "Home team odds with handicap"
+            },
+            "away": {
+              "type": "number",
+              "description": "Away team odds with handicap"
+            }
+          }
+        },
+        "correctScore": {
+          "type": "array",
+          "description": "Correct Score market options",
+          "items": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "string",
+                "description": "Score prediction (e.g., '2-1')"
+              },
+              "odds": {
+                "type": "number",
+                "description": "Odds for this score"
+              }
+            }
+          }
+        },
+        "halfTimeFullTime": {
+          "type": "array",
+          "description": "HT/FT market options",
+          "items": {
+            "type": "object",
+            "properties": {
+              "result": {
+                "type": "string",
+                "description": "HT/FT result (e.g., 'H/H', 'D/A')"
+              },
+              "odds": {
+                "type": "number",
+                "description": "Odds for this outcome"
+              }
+            }
+          }
+        }
+      }
+    },
+    "statistics": {
+      "type": "object",
+      "description": "Match statistics (for live/finished matches)",
+      "properties": {
+        "possession": {
+          "type": "object",
+          "properties": {
+            "home": {
+              "type": "integer",
+              "description": "Home possession percentage"
+            },
+            "away": {
+              "type": "integer",
+              "description": "Away possession percentage"
+            }
+          }
+        },
+        "shots": {
+          "type": "object",
+          "properties": {
+            "home": {
+              "type": "integer"
+            },
+            "away": {
+              "type": "integer"
+            }
+          }
+        },
+        "shotsOnTarget": {
+          "type": "object",
+          "properties": {
+            "home": {
+              "type": "integer"
+            },
+            "away": {
+              "type": "integer"
+            }
+          }
+        },
+        "corners": {
+          "type": "object",
+          "properties": {
+            "home": {
+              "type": "integer"
+            },
+            "away": {
+              "type": "integer"
+            }
+          }
+        },
+        "fouls": {
+          "type": "object",
+          "properties": {
+            "home": {
+              "type": "integer"
+            },
+            "away": {
+              "type": "integer"
+            }
+          }
+        },
+        "yellowCards": {
+          "type": "object",
+          "properties": {
+            "home": {
+              "type": "integer"
+            },
+            "away": {
+              "type": "integer"
+            }
+          }
+        },
+        "redCards": {
+          "type": "object",
+          "properties": {
+            "home": {
+              "type": "integer"
+            },
+            "away": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "form": {
+      "type": "object",
+      "description": "Recent form (last 5 matches)",
+      "properties": {
+        "home": {
+          "type": "string",
+          "description": "Home team form (e.g., 'WWDLW')"
+        },
+        "away": {
+          "type": "string",
+          "description": "Away team form (e.g., 'LWWDD')"
+        }
+      }
+    },
+    "headToHead": {
+      "type": "object",
+      "description": "Head-to-head statistics",
+      "properties": {
+        "played": {
+          "type": "integer",
+          "description": "Total matches played"
+        },
+        "homeWins": {
+          "type": "integer"
+        },
+        "draws": {
+          "type": "integer"
+        },
+        "awayWins": {
+          "type": "integer"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata",
+      "properties": {
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last odds update timestamp"
+        },
+        "dataSource": {
+          "type": "string",
+          "description": "Data provider (e.g., 'API-Football', 'Mock')"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Data confidence score (0-1)"
+        }
+      }
+    }
+  }
+}
