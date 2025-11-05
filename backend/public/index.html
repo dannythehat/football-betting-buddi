@@ -13,6 +13,16 @@
     #status { font-size:12px; opacity:0.8; margin-top:6px; }
     main { padding:20px; max-width: 1200px; margin: 0 auto; }
     
+    /* Navigation */
+    nav { display:flex; gap:12px; margin-top:16px; }
+    nav a { 
+      padding:8px 16px; border-radius:8px; background:#1a1030; 
+      border:1px solid #2a2151; color:#e8e6ff; text-decoration:none; 
+      font-size:14px; transition: all 0.2s;
+    }
+    nav a:hover { background:#241245; border-color:#5a4a9f; }
+    nav a.active { background:#5a4a9f; border-color:#7a6abf; }
+    
     /* Filters */
     .filters { background:#141426; border:1px solid #2a2151; border-radius:14px; padding:16px; margin-bottom:20px; }
     .filter-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px; }
@@ -86,17 +96,37 @@
       font-size:13px; font-weight:600; transition: all 0.2s;
     }
     .add-to-dashboard:hover { background:#7a6abf; transform: scale(1.05); }
+    .add-to-dashboard.added { background:#2a914a; border-color:#3aa15a; }
     
     .empty-state { text-align:center; padding:60px 20px; opacity:0.6; }
     .empty-state svg { width:80px; height:80px; opacity:0.3; margin-bottom:16px; }
     
     .muted { opacity:0.7; }
     .loading { text-align:center; padding:40px; opacity:0.6; }
+    
+    /* Toast notification */
+    .toast { 
+      position:fixed; bottom:20px; right:20px; 
+      background:#2a914a; color:#fff; padding:12px 20px; 
+      border-radius:8px; font-size:14px; font-weight:600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      animation: slideIn 0.3s ease-out;
+      z-index:1000;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(400px); opacity:0; }
+      to { transform: translateX(0); opacity:1; }
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>⚽ FootballBettingBuddi — Smart Bets with Precision Analytics</h1>
+    <nav>
+      <a href="/" class="active">Smart Bets</a>
+      <a href="/dashboard.html">My Dashboard</a>
+      <a href="/fixtures.html">Fixtures</a>
+    </nav>
     <div id="status" class="muted">Loading smart bets...</div>
   </header>
   
@@ -205,7 +235,40 @@
   </main>
   
   <script type="module">
+    const STORAGE_KEY = 'fbb_saved_bets';
     let allBetsData = null;
+    
+    // LocalStorage helpers
+    function getSavedBets() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    }
+    
+    function isBetSaved(betId) {
+      return getSavedBets().some(b => b.id === betId);
+    }
+    
+    function saveBet(bet) {
+      const saved = getSavedBets();
+      if (!saved.some(b => b.id === bet.id)) {
+        saved.push({
+          ...bet,
+          addedAt: new Date().toISOString(),
+          status: 'pending'
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+        return true;
+      }
+      return false;
+    }
+    
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
     
     async function loadSmartBets(queryParams = '') {
       const statusEl = document.getElementById('status');
@@ -261,6 +324,7 @@
     function renderBetCard(bet) {
       const kickoffDate = new Date(bet.kickoff_utc);
       const confidenceIcon = bet.confidence_color === 'green' ? '🟢' : bet.confidence_color === 'yellow' ? '🟡' : '🔴';
+      const isAdded = isBetSaved(bet.id);
       
       return `
         <div class="card">
@@ -292,7 +356,7 @@
             </div>
             <div class="detail-item">
               <div class="detail-label">Expected Value</div>
-              <div class="detail-value ${bet.ev > 0 ? 'green' : ''}">${bet.ev !== null ? bet.ev.toFixed(3) : 'N/A'}</div>
+              <div class="detail-value ${bet.ev > 0 ? 'green' : ''}">${ bet.ev !== null ? bet.ev.toFixed(3) : 'N/A'}</div>
             </div>
           </div>
           
@@ -305,8 +369,10 @@
               ${bet.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
               <span class="tag">Stake: £${bet.stake}</span>
             </div>
-            <button class="add-to-dashboard" onclick="addToDashboard('${bet.id}')">
-              + Add to Dashboard
+            <button class="add-to-dashboard ${isAdded ? 'added' : ''}" 
+                    onclick="addToDashboard('${bet.id}')"
+                    ${isAdded ? 'disabled' : ''}>
+              ${isAdded ? '✓ Added' : '+ Add to Dashboard'}
             </button>
           </div>
         </div>
@@ -344,9 +410,32 @@
     };
     
     window.addToDashboard = function(betId) {
-      // Placeholder for dashboard functionality
-      alert(`Bet ${betId} will be added to dashboard (coming in Day 7)`);
-      console.log('Adding bet to dashboard:', betId);
+      if (!allBetsData) return;
+      
+      const bet = allBetsData.bets.find(b => b.id === betId);
+      if (!bet) return;
+      
+      // Transform bet data for dashboard
+      const dashboardBet = {
+        id: bet.id,
+        homeTeam: bet.home,
+        awayTeam: bet.away,
+        league: bet.league.name,
+        market: bet.market,
+        selection: bet.pick,
+        odds: bet.odds,
+        probability: bet.probability,
+        kickoff: bet.kickoff_utc,
+        status: 'pending'
+      };
+      
+      if (saveBet(dashboardBet)) {
+        showToast('✓ Bet added to dashboard!');
+        // Re-render to update button state
+        loadSmartBets(window.location.search);
+      } else {
+        showToast('Bet already in dashboard');
+      }
     };
     
     // Initial load
