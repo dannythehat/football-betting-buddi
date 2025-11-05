@@ -1,4 +1,4 @@
-﻿import express from "express";
+import express from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -76,14 +76,73 @@ app.get("/api/pl/compute", async (req, res) => {
   }
 });
 
+// Fixtures endpoint with filtering
+app.get("/api/fixtures", async (req, res) => {
+  const filePath = path.join(DATA_DIR, "mock-fixtures.json");
+  try {
+    const raw = await fs.readFile(filePath, "utf8");
+    const data = JSON.parse(raw);
+    let fixtures = data.fixtures || [];
+
+    // Filter by league
+    if (req.query.league) {
+      const leagueFilter = req.query.league.toLowerCase();
+      fixtures = fixtures.filter(f => 
+        f.league.name.toLowerCase().includes(leagueFilter) ||
+        f.league.country.toLowerCase() === leagueFilter
+      );
+    }
+
+    // Filter by date (YYYY-MM-DD format)
+    if (req.query.date) {
+      const dateFilter = req.query.date;
+      fixtures = fixtures.filter(f => f.kickoff.startsWith(dateFilter));
+    }
+
+    // Filter by status
+    if (req.query.status) {
+      const statusFilter = req.query.status.toLowerCase();
+      fixtures = fixtures.filter(f => f.status.toLowerCase() === statusFilter);
+    }
+
+    // Filter by team (home or away)
+    if (req.query.team) {
+      const teamFilter = req.query.team.toLowerCase();
+      fixtures = fixtures.filter(f => 
+        f.homeTeam.toLowerCase().includes(teamFilter) ||
+        f.awayTeam.toLowerCase().includes(teamFilter)
+      );
+    }
+
+    res.json({
+      status: "ok",
+      count: fixtures.length,
+      fixtures: fixtures
+    });
+  } catch (err) {
+    if (err.code === "ENOENT") {
+      return res.status(404).json({ 
+        status: "error", 
+        message: "Fixtures data not found" 
+      });
+    }
+    console.error("fixtures error:", err);
+    res.status(500).json({ 
+      status: "error", 
+      message: "Failed to load fixtures." 
+    });
+  }
+});
+
 // Static UI
 app.use(express.static(PUBLIC_DIR));
 app.get("/", (req, res) => res.sendFile(path.join(PUBLIC_DIR, "index.html")));
 
 app.listen(PORT, HOST, () => {
   console.log(`Minimal API listening on http://${HOST}:${PORT}`);
-  console.log(`Health: http://${HOST}:${PORT}/api/health`);
-  console.log(`UI:     http://${HOST}:${PORT}/`);
-  console.log(`Bets:   http://${HOST}:${PORT}/api/smart-bets`);
-  console.log(`P/L:    http://${HOST}:${PORT}/api/pl/compute`);
+  console.log(`Health:   http://${HOST}:${PORT}/api/health`);
+  console.log(`UI:       http://${HOST}:${PORT}/`);
+  console.log(`Bets:     http://${HOST}:${PORT}/api/smart-bets`);
+  console.log(`P/L:      http://${HOST}:${PORT}/api/pl/compute`);
+  console.log(`Fixtures: http://${HOST}:${PORT}/api/fixtures`);
 });
