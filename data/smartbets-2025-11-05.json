@@ -1,0 +1,254 @@
+{
+  "date": "2025-11-05",
+  "generated_at_utc": "2025-11-05T01:11:00Z",
+  "bets": [
+    {
+      "id": "SB-20251105-A7F3C2E1",
+      "fixture_id": 1,
+      "league": {
+        "id": 39,
+        "name": "Premier League",
+        "country": "England",
+        "season": 2025,
+        "round": "Regular Season - 12"
+      },
+      "home": "Manchester City",
+      "away": "Arsenal",
+      "kickoff_utc": "2025-11-08T15:00:00Z",
+      "market": "Over/Under",
+      "market_params": {
+        "line": 2.5
+      },
+      "pick": "Over 2.5",
+      "probability": 0.72,
+      "confidence_color": "green",
+      "odds": 1.85,
+      "ev": 0.33,
+      "stake": 10,
+      "ai_reasoning": "Both teams averaging 2.8 goals per game in last 5 matches. Historical H2H shows 75% of matches exceed 2.5 goals",
+      "status": "pending",
+      "result_value": null,
+      "settled_at_utc": null,
+      "tags": [
+        "SmartBet",
+        "Generated"
+      ]
+    },
+    {
+      "id": "SB-20251105-B8E4D3F2",
+      "fixture_id": 2,
+      "league": {
+        "id": 39,
+        "name": "Premier League",
+        "country": "England",
+        "season": 2025,
+        "round": "Regular Season - 12"
+      },
+      "home": "Liverpool",
+      "away": "Chelsea",
+      "kickoff_utc": "2025-11-08T17:30:00Z",
+      "market": "BTTS",
+      "market_params": {},
+      "pick": "BTTS Yes",
+      "probability": 0.68,
+      "confidence_color": "green",
+      "odds": 1.65,
+      "ev": 0.12,
+      "stake": 10,
+      "ai_reasoning": "Home team scored in 82% of home games, away in 71% of away games. Attacking formations favor both teams scoring",
+      "status": "pending",
+      "result_value": null,
+      "settled_at_utc": null,
+      "tags": [
+        "SmartBet",
+        "Generated"
+      ]
+    },
+    {
+      "id": "SB-20251105-C9F5E4G3",
+      "fixture_id": 3,
+      "league": {
+        "id": 140,
+        "name": "La Liga",
+        "country": "Spain",
+        "season": 2025,
+        "round": "Regular Season - 12"
+      },
+      "home": "Real Madrid",
+      "away": "Barcelona",
+      "kickoff_utc": "2025-11-09T20:00:00Z",
+      "market": "Over/Under",
+      "market_params": {
+        "line": 2.5
+      },
+      "pick": "Over 2.5",
+      "probability": 0.70,
+      "confidence_color": "green",
+      "odds": 1.80,
+      "ev": 0.26,
+      "stake": 10,
+      "ai_reasoning": "Recent form and xG trends suggest high-scoring match. Defensive vulnerabilities favor over 2.5",
+      "status": "pending",
+      "result_value": null,
+      "settled_at_utc": null,
+      "tags": [
+        "SmartBet",
+        "Generated"
+      ]
+    },
+    {
+      "id": "SB-20251105-D0G6F5H4",
+      "fixture_id": 4,
+      "league": {
+        "id": 135,
+        "name": "Serie A",
+        "country": "Italy",
+        "season": 2025,
+        "round": "Regular Season - 12"
+      },
+      "home": "Inter Milan",
+      "away": "AC Milan",
+      "kickoff_utc": "2025-11-10T19:45:00Z",
+      "market": "1X2",
+      "market_params": {},
+      "pick": "Home",
+      "probability": 0.58,
+      "confidence_color": "yellow",
+      "odds": 2.20,
+      "ev": 0.28,
+      "stake": 10,
+      "ai_reasoning": "Home advantage and recent form strongly favor Home. Historical dominance in this fixture supports Home",
+      "status": "pending",
+      "result_value": null,
+      "settled_at_utc": null,
+      "tags": [
+        "SmartBet",
+        "Generated"
+      ]
+    },
+    {
+      "id": "SB-20251105-E1H7G6I5",
+      "fixture_id": 5,
+      "league": {
+        "id": 78,
+        "name": "Bundesliga",
+        "country": "Germany",
+        "season": 2025,
+        "round": "Regular Season - 12"
+      },
+      "home": "Bayern Munich",
+      "away": "Borussia Dortmund",
+      "kickoff_utc": "2025-11-09T17:30:00Z",
+      "market": "Over/Under",
+      "market_params": {
+        "line": 2.5
+      },
+      "pick": "Over 2.5",
+      "probability": 0.75,
+      "confidence_color": "green",
+      "odds": 1.70,
+      "ev": 0.28,
+      "stake": 10,
+      "ai_reasoning": "Both teams averaging 3.2 goals per game in last 5 matches. Weather conditions support open play",
+      "status": "pending",
+      "result_value": null,
+      "settled_at_utc": null,
+      "tags": [
+        "SmartBet",
+        "Generated"
+      ]
+    },
+    {
+      "id": "SB-20251105-F2I8H7J6",
+      "fixture_id": 6,
+      "league": {
+        "id": 39,
+        "name": "Premier League",
+        "country": "England",
+        "season": 2025,
+        "round": "Regular Season - 12"
+      },
+      "home": "Manchester United",
+      "away": "Tottenham",
+      "kickoff_utc": "2025-11-10T14:00:00Z",
+      "market": "BTTS",
+      "market_params": {},
+      "pick": "BTTS Yes",
+      "probability": 0.66,
+      "confidence_color": "green",
+      "odds": 1.75,
+      "ev": 0.16,
+      "stake": 10,
+      "ai_reasoning": "Both sides create consistent chances; defenses allow high-quality shots. Set-piece strength suggests goals at both ends",
+      "status": "pending",
+      "result_value": null,
+      "settled_at_utc": null,
+      "tags": [
+        "SmartBet",
+        "Generated"
+      ]
+    },
+    {
+      "id": "SB-20251105-G3J9I8K7",
+      "fixture_id": 7,
+      "league": {
+        "id": 140,
+        "name": "La Liga",
+        "country": "Spain",
+        "season": 2025,
+        "round": "Regular Season - 12"
+      },
+      "home": "Atletico Madrid",
+      "away": "Sevilla",
+      "kickoff_utc": "2025-11-08T20:00:00Z",
+      "market": "Asian Handicap",
+      "market_params": {
+        "line": -0.5
+      },
+      "pick": "Home -0.5",
+      "probability": 0.62,
+      "confidence_color": "yellow",
+      "odds": 1.95,
+      "ev": 0.21,
+      "stake": 10,
+      "ai_reasoning": "Team strength disparity justifies -0.5 line. Home/away performance differential supports -0.5",
+      "status": "pending",
+      "result_value": null,
+      "settled_at_utc": null,
+      "tags": [
+        "SmartBet",
+        "Generated"
+      ]
+    },
+    {
+      "id": "SB-20251105-H4K0J9L8",
+      "fixture_id": 8,
+      "league": {
+        "id": 61,
+        "name": "Ligue 1",
+        "country": "France",
+        "season": 2025,
+        "round": "Regular Season - 12"
+      },
+      "home": "PSG",
+      "away": "Marseille",
+      "kickoff_utc": "2025-11-10T20:00:00Z",
+      "market": "1X2",
+      "market_params": {},
+      "pick": "Home",
+      "probability": 0.65,
+      "confidence_color": "green",
+      "odds": 1.60,
+      "ev": 0.04,
+      "stake": 10,
+      "ai_reasoning": "Superior squad depth and tactical setup benefit Home. Motivation factors favor Home",
+      "status": "pending",
+      "result_value": null,
+      "settled_at_utc": null,
+      "tags": [
+        "SmartBet",
+        "Generated"
+      ]
+    }
+  ]
+}
