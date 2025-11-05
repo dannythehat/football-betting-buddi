@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fixtures — FootballBettingBuddi</title>
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    .filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .filter-group label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #333;
+    }
+    .filter-group select,
+    .filter-group input {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 0.875rem;
+    }
+    .clear-filters {
+      align-self: flex-end;
+      padding: 0.5rem 1rem;
+      background: #666;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+    .clear-filters:hover {
+      background: #555;
+    }
+    .fixture-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: box-shadow 0.2s;
+    }
+    .fixture-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .fixture-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .league-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: #007bff;
+      color: white;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .kickoff-time {
+      font-size: 0.875rem;
+      color: #666;
+    }
+    .teams {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .vs {
+      color: #999;
+      font-weight: 400;
+      font-size: 1rem;
+    }
+    .markets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e0e0e0;
+    }
+    .market {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .market-title {
+      font-size: 0.75rem;
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .odds {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .odd-button {
+      flex: 1;
+      padding: 0.5rem;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .odd-button:hover {
+      background: #e9ecef;
+      border-color: #007bff;
+    }
+    .odd-label {
+      display: block;
+      font-size: 0.75rem;
+      color: #666;
+      margin-bottom: 0.25rem;
+    }
+    .odd-value {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #007bff;
+    }
+    .form-h2h {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e0e0e0;
+      font-size: 0.875rem;
+    }
+    .form-h2h > div {
+      flex: 1;
+    }
+    .form-h2h strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: #333;
+    }
+    .form {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .form-result {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .form-result.W { background: #28a745; }
+    .form-result.D { background: #ffc107; color: #333; }
+    .form-result.L { background: #dc3545; }
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+    }
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    .no-fixtures {
+      text-align: center;
+      padding: 3rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FootballBettingBuddi</h1>
+    <p>Fixtures Browser — MVP</p>
+    <nav style="margin-top: 1rem;">
+      <a href="index.html" style="margin-right: 1rem;">Smart Bets</a>
+      <a href="fixtures.html" style="font-weight: 600;">Fixtures</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="filters">
+      <div class="filter-group">
+        <label for="leagueFilter">League</label>
+        <select id="leagueFilter">
+          <option value="">All Leagues</option>
+          <option value="premier">Premier League</option>
+          <option value="la liga">La Liga</option>
+          <option value="serie a">Serie A</option>
+          <option value="bundesliga">Bundesliga</option>
+          <option value="ligue 1">Ligue 1</option>
+        </select>
+      </div>
+      
+      <div class="filter-group">
+        <label for="dateFilter">Date</label>
+        <input type="date" id="dateFilter" />
+      </div>
+      
+      <div class="filter-group">
+        <label for="teamFilter">Team</label>
+        <input type="text" id="teamFilter" placeholder="Search team..." />
+      </div>
+      
+      <button class="clear-filters" onclick="clearFilters()">Clear Filters</button>
+    </div>
+
+    <section id="status" class="loading">Loading fixtures...</section>
+    <section id="fixtures"></section>
+  </main>
+
+  <footer>
+    <small>© FootballBettingBuddi</small>
+  </footer>
+
+  <script src="./fixtures.js"></script>
+</body>
+</html>
